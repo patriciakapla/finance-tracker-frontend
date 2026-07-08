@@ -5,11 +5,35 @@ import PageTitle from "../components/PageTitle";
 import Dialog from "../components/Dialog";
 import FormContainer from "../components/FormContainer";
 import { useState } from "react";
+import { useUserCreateMutation } from "../features/users/hooks/useUserCreateMutation";
 
 function Users() {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggleDialog = () => {
     setIsOpen(!isOpen);
+  };
+
+  const { mutate } = useUserCreateMutation();
+
+  const handleSave = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const name = formData.get("name");
+    const birthDate = formData.get("birthDate");
+
+    mutate(
+      {
+        name: String(name),
+        birthDate: String(birthDate),
+      },
+      {
+        onSuccess: () => {
+          handleToggleDialog();
+        },
+      },
+    );
   };
 
   return (
@@ -20,20 +44,22 @@ function Users() {
       </div>
       <UsersTable />
       <Dialog isOpen={isOpen}>
-        <form className="flex flex-col gap-4">
-          <FormContainer>
-            <label>Nome:</label>
-            <input type="text" className="border rounded" />
-          </FormContainer>
-          <FormContainer>
-            <label>Data de nascimento:</label>
-            <input type="date" />
-          </FormContainer>
+        <form id="asdf" onSubmit={handleSave}>
+          <div className="flex flex-col gap-4">
+            <FormContainer>
+              <label>Nome:</label>
+              <input type="text" className="border rounded" name="name" />
+            </FormContainer>
+            <FormContainer>
+              <label>Data de nascimento:</label>
+              <input type="date" name="birthDate" />
+            </FormContainer>
+          </div>
+          <div className="flex gap-4 justify-around">
+            <Button type="submit">Confirmar</Button>
+            <Button onClick={handleToggleDialog}>Cancelar</Button>
+          </div>
         </form>
-        <div className="flex gap-4 justify-around">
-          <Button onClick={handleToggleDialog}>Confirmar</Button>
-          <Button onClick={handleToggleDialog}>Cancelar</Button>
-        </div>
       </Dialog>
     </DataView>
   );

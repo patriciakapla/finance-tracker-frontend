@@ -2,7 +2,20 @@ import TableHeader from "../../../components/TableHeader";
 import TableData from "../../../components/TableData";
 import Table from "../../../components/Table";
 
+import { useUserQuery } from "../hooks/useUserQuery";
+import formatData from "../constants/formatUserData";
+
 function UsersTable() {
+  const { data, isLoading } = useUserQuery();
+
+  const users = data ? formatData(data) : [];
+
+  users?.sort((a, b) => a.name.localeCompare(b.name));
+
+  if (isLoading) {
+    return <span>Carregando...</span>;
+  }
+
   return (
     <div>
       <Table>
@@ -13,20 +26,15 @@ function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <TableData>
-              <span>Buffy</span>
-              <DeleteButton />
-            </TableData>
-            <TableData>17/05/2026</TableData>
-          </tr>
-          <tr>
-            <TableData>
-              <span>Rupert</span>
-              <DeleteButton />
-            </TableData>
-            <TableData>21/05/2026</TableData>
-          </tr>
+          {users?.map((user) => (
+            <tr key={user.id}>
+              <TableData>
+                {user.name}
+                <DeleteButton />
+              </TableData>
+              <TableData>{user.birthDate}</TableData>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
