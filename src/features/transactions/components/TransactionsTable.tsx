@@ -1,8 +1,17 @@
 import TableHeader from "../../../components/TableHeader";
 import TableData from "../../../components/TableData";
 import Table from "../../../components/Table";
+import { useTransactionQuery } from "../hooks/useTransactionQuery";
+import { formatDate } from "../../../utils/formatDate";
+import { formatNumber } from "../../../utils/formatNumber";
 
 function TransactionsTable() {
+  const { data: transactions, isLoading } = useTransactionQuery();
+
+  if (isLoading) {
+    return <span>Carregando...</span>;
+  }
+
   return (
     <div>
       <Table>
@@ -16,20 +25,25 @@ function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <TableData>Buffy</TableData>
-            <TableData>17/05/2026</TableData>
-            <TableData>Caça de vampiro</TableData>
-            <TableData>1200,00</TableData>
-            <TableData>-</TableData>
-          </tr>
-          <tr>
-            <TableData>Rupert</TableData>
-            <TableData>21/05/2026</TableData>
-            <TableData>Equipamento para matar vampiros</TableData>
-            <TableData>-</TableData>
-            <TableData>55,90</TableData>
-          </tr>
+          {transactions?.data.map((transaction) => {
+            return (
+              <tr key={transaction.id}>
+                <TableData>{transaction.userName}</TableData>
+                <TableData>{formatDate(transaction.createdAt)}</TableData>
+                <TableData>{transaction.description}</TableData>
+                <TableData>
+                  {transaction.type === "revenue"
+                    ? formatNumber(transaction.amount)
+                    : "-"}
+                </TableData>
+                <TableData>
+                  {transaction.type === "expense"
+                    ? formatNumber(transaction.amount)
+                    : "-"}
+                </TableData>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>

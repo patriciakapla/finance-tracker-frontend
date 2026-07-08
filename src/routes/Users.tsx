@@ -44,7 +44,7 @@ function Users() {
       </div>
       <UsersTable />
       <Dialog isOpen={isOpen}>
-        <form id="asdf" onSubmit={handleSave}>
+        <form onSubmit={handleSave}>
           <div className="flex flex-col gap-4">
             <FormContainer>
               <label>Nome:</label>
@@ -55,9 +55,13 @@ function Users() {
               <input type="date" name="birthDate" />
             </FormContainer>
           </div>
-          <div className="flex gap-4 justify-around">
-            <Button type="submit">Confirmar</Button>
-            <Button onClick={handleToggleDialog}>Cancelar</Button>
+          <div className="flex gap-4 justify-end items-center mt-4">
+            <Button onClick={handleToggleDialog} variant="cancel">
+              Cancelar
+            </Button>
+            <Button type="submit" variant="save">
+              Confirmar
+            </Button>
           </div>
         </form>
       </Dialog>

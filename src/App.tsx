@@ -11,7 +11,7 @@ import Transactions from "./routes/Transactions";
 import Users from "./routes/Users";
 import Report from "./routes/Report";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./config/queryCliente";
+import { queryClient } from "./config/queryClient";
 
 const rootRoute = createRootRoute({
   component: () => (

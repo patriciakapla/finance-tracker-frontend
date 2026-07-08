@@ -3,14 +3,18 @@ import TableData from "../../../components/TableData";
 import Table from "../../../components/Table";
 
 import { useUserQuery } from "../hooks/useUserQuery";
-import formatData from "../constants/formatUserData";
+
+import { useUserDeleteMutation } from "../hooks/useUserDeleteMutation";
+import { formatDate } from "../../../utils/formatDate";
 
 function UsersTable() {
-  const { data, isLoading } = useUserQuery();
+  const { data: users, isLoading } = useUserQuery();
 
-  const users = data ? formatData(data) : [];
+  const { mutate } = useUserDeleteMutation();
 
-  users?.sort((a, b) => a.name.localeCompare(b.name));
+  const deleteUser = (userId: string) => {
+    mutate(userId);
+  };
 
   if (isLoading) {
     return <span>Carregando...</span>;
@@ -26,15 +30,17 @@ function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {users?.map((user) => (
-            <tr key={user.id}>
-              <TableData>
-                {user.name}
-                <DeleteButton />
-              </TableData>
-              <TableData>{user.birthDate}</TableData>
-            </tr>
-          ))}
+          {users?.data.map((user) => {
+            return (
+              <tr key={user.id}>
+                <TableData>
+                  {user.name}
+                  <DeleteButton onClick={() => deleteUser(user.id)} />
+                </TableData>
+                <TableData>{formatDate(user.birthDate)}</TableData>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>
@@ -43,10 +49,14 @@ function UsersTable() {
 
 export default UsersTable;
 
-function DeleteButton() {
+type DeleteButtonProps = {
+  onClick: () => void;
+};
+
+function DeleteButton({ onClick }: DeleteButtonProps) {
   return (
     <div className="flex align-items mx-3">
-      <button>
+      <button onClick={onClick}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

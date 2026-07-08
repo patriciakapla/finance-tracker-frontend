@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import { createUser } from "../api/createUser";
 import { queryClient } from "../../../config/queryClient";
 import { userQueryKeys } from "../constants/queryKeys";
+import { deleteUser } from "../api/deleteUser";
 
-export const useUserCreateMutation = () => {
+export const useUserDeleteMutation = () => {
   return useMutation({
-    mutationFn: createUser,
+    mutationFn: deleteUser,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: userQueryKeys.all(),
