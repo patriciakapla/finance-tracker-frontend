@@ -11,6 +11,7 @@ type ButtonProps = {
   type?: "button" | "submit";
   onClick?: (props?: unknown) => void;
   variant?: "default" | "cancel" | "save";
+  isDisabled?: boolean;
 };
 
 export default function Button({
@@ -18,6 +19,7 @@ export default function Button({
   onClick,
   type = "button",
   variant = ButtonColors.Default,
+  isDisabled = false,
 }: ButtonProps) {
   const variantClass =
     variant === ButtonColors.Default
@@ -31,6 +33,7 @@ export default function Button({
       className={`py-1 px-2 border rounded max-w-min flex justify-around text-xs ${variantClass}`}
       onClick={onClick}
       type={type}
+      disabled={isDisabled}
     >
       {children}
     </button>

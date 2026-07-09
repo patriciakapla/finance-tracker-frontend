@@ -26,6 +26,7 @@ function TransactionsTable() {
         </thead>
         <tbody>
           {transactions?.data.map((transaction) => {
+            console.log(transactions);
             return (
               <tr key={transaction.id}>
                 <TableData>{transaction.userName}</TableData>

@@ -4,7 +4,7 @@ import { API_URL } from "../../../config/environment";
 type CreateTransactionProps = {
   userId: string;
   description: string;
-  amount: number;
+  amount: string;
   type: string;
 };
 

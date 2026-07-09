@@ -7,3 +7,17 @@ export type Transaction = {
   type: string;
   createdAt: string;
 };
+
+export type TransactionReport = {
+  userId: string;
+  username: string;
+  revenue: number;
+  expenses: number;
+  balance: number;
+};
+
+export type ReportTotal = {
+  totalRevenue: number;
+  totalExpenses: number;
+  totalBalance: number;
+};

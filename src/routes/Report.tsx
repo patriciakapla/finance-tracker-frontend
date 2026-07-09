@@ -1,7 +1,7 @@
-import TransactionsReportTable from "../features/transactions/components/TransactionsReportTable";
+import TransactionsReportTable from "../features/transactions/components/report/TransactionsReportTable";
 import DataView from "../components/DataView";
 import PageTitle from "../components/PageTitle";
-import TotalView from "../components/TotalView";
+import ReportTotalView from "../features/transactions/components/report/ReportTotalView";
 
 function Report() {
   return (
@@ -12,7 +12,7 @@ function Report() {
         </div>
         <div className="flex flex-col gap-8">
           <TransactionsReportTable />
-          <TotalView></TotalView>
+          <ReportTotalView></ReportTotalView>
         </div>
       </DataView>
     </>

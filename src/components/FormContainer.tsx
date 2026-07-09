@@ -5,7 +5,11 @@ type FormContainerProps = {
 };
 
 function FormContainer({ children }: FormContainerProps) {
-  return <div className="flex gap-3">{children}</div>;
+  return (
+    <div className="flex gap-3 text-sm items-start justify-between">
+      {children}
+    </div>
+  );
 }
 
 export default FormContainer;
