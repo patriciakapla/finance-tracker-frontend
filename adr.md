@@ -1,6 +1,6 @@
 # ADR
 
-## 01 - ORGANIZAÇÃO DO BACKEND
+## 01 - ORGANIZAÇÃO DO FRONTEND
 
 - O frontend foi organizado por funcionalidade dentro de src/features, separando domínios como users e transactions.
 
