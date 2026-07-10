@@ -1,15 +1,15 @@
 # Finance Tracker Frontend
 
-Frontend em React para o projeto `finance-tracker-backend`.
+Interface para controle de gastos residenciais desenvolvida em React.
 
-Para conhecer as decisões arquiteturais, veja o arquivo adr.md
+- [Decisões arquiteturais](./adr.md)
+- [Repositório do backend](https://github.com/patriciakapla/finance-tracker-backend)
 
 ## Requisitos
 
 - Node.js
 - npm
 - Backend configurado e em execução
-- Banco PostgreSQL do backend em execução
 
 ## Configuração
 
@@ -19,55 +19,27 @@ Instale as dependências:
 npm install
 ```
 
-Crie o arquivo `.env`:
+Crie o arquivo `.env` a partir do exemplo:
 
 ```bash
 cp .env.example .env
 ```
 
-Confirme a URL da API:
+Confirme que `VITE_API_URL` aponta para a API:
 
-```bash
+```env
 VITE_API_URL=http://localhost:5217
 ```
 
-## Rodando com o backend
+Para configurar e executar a API e o banco de dados, siga as instruções do
+[repositório do backend](https://github.com/patriciakapla/finance-tracker-backend).
 
-No repositório do backend, suba o banco:
+## Executando o frontend
 
-```bash
-docker compose up -d
-```
-
-Ainda no backend, rode a API:
-
-```bash
-dotnet run --project backend/FinanceTracker.Api
-```
-
-A API deve ficar disponível em:
-
-```bash
-http://localhost:5217
-```
-
-No repositório do frontend, rode:
+Com o backend em execução, rode:
 
 ```bash
 npm run dev
 ```
 
-O frontend normalmente fica disponível em:
-
-```bash
-http://localhost:5173
-```
-
-```
-
-## Rotas
-
-- `/`: transações
-- `/users`: usuários
-- `/report`: relatório
-```
+O frontend ficará disponível em `http://localhost:5173`.
